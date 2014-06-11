@@ -31,7 +31,7 @@ public class DrawMap {
 	private final static String COMPANYNAME = "旭昂物联";
 	private final static String[] menus = new String[] { "文件", "控件", "帮助" };
 	private final static String[][] menuItems = new String[][] {
-			{ "导入节点", "保存控件", "退出" }, { "节点控件", "横向水管", "纵向水管", "指南针" },
+			{ "导入节点", "保存控件", "退出" }, { "节点控件", "横向水管", "纵向水管", "首部" },
 			{ "关于我们", "欢迎使用" } };
 	private final static String[] toolItems = new String[] { "导入节点", "保存控件",
 			"节点控件", "横向水管", "纵向水管", "首部" };
