@@ -21,8 +21,11 @@ public class ArgStatusLabel extends JLabel {
 	/**
 	 * 初始化自定义标签
 	 */
-	public ArgStatusLabel() {
-		this.setFont(FONT_14_BOLD);
+	public ArgStatusLabel(Font font) {
+		this.setFont(font);
 	}
-
+	
+	public ArgStatusLabel() {
+	}
+	
 }

@@ -6,14 +6,12 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -27,6 +25,7 @@ import javax.swing.UIManager;
  */
 public class DrawMap {
 
+	private static JFrame frame = null;
 	private final static String VERSION = "v 1.1";
 	private final static String COMPANYNAME = "旭昂物联";
 	private final static String[] menus = new String[] { "文件", "控件", "帮助" };
@@ -55,6 +54,7 @@ public class DrawMap {
 					// TODO Auto-generated method stub
 					switch (tool.getText()) {
 					case "导入节点":
+						ArgParameterSet.createAndShowGUI();
 						break;
 					case "保存控件":
 						break;
@@ -86,13 +86,13 @@ public class DrawMap {
 		// foot
 		panel = new JPanel();
 		panel.setBackground(Color.GRAY);
-		ArgStatusLabel argLabel = new ArgStatusLabel();
+		ArgStatusLabel argLabel = new ArgStatusLabel(ArgStatusLabel.FONT_14_BOLD);
 		argLabel.setText("主程序版本：" + VERSION);
 		panel.add(argLabel);
-		argLabel = new ArgStatusLabel();
+		argLabel = new ArgStatusLabel(ArgStatusLabel.FONT_14_BOLD);
 		argLabel.setText(" |出品公司：" + COMPANYNAME);
 		panel.add(argLabel);
-		argLabel = new ArgStatusLabel();
+		argLabel = new ArgStatusLabel(ArgStatusLabel.FONT_14_BOLD);
 		argLabel.setText(" |当前时间：");
 		panel.add(argLabel);
 		ArgStatusTimeLabel argTime = new ArgStatusTimeLabel();
@@ -115,7 +115,7 @@ public class DrawMap {
 			}
 			mb.add(m);
 		}
-		JFrame frame = new JFrame("智慧农业地图绘制系统");
+		frame = new JFrame("智慧农业地图绘制系统");
 		frame.setJMenuBar(mb);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
