@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Properties;
 
@@ -18,8 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * 参数设置GUI
@@ -41,58 +41,86 @@ public class ArgParameterSet {
 	private static void addComponentsToPane(Container pane) {
 		// top
 		JPanel panel = new JPanel();
-		JButton btn = new JButton("PAGE_START");
-		ArgStatusLabel argLabel = new ArgStatusLabel(ArgStatusLabel.FONT_14_BOLD);
+		JButton btn = new JButton();
+		ArgStatusLabel argLabel = new ArgStatusLabel(
+				ArgStatusLabel.FONT_14_BOLD);
 		argLabel.setText("导入节点：");
 		panel.add(argLabel);
 		final JButton jBtnFile = new JButton("选择...");
-		jBtnFile.setBounds(130, 10, 50, 30);
 		jBtnFile.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(
+						"xls&xlsx", "xls", "xlsx");
 				JFileChooser jfc = new JFileChooser();
+				jfc.setFileFilter(filter);
 				if (jfc.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
 					// 解释下这里,弹出个对话框,可以选择要上传的文件,如果选择了,就把选择的文件的绝对路径打印出来,有了绝对路径,通过JTextField的settext就能设置进去了,那个我没写
 					jBtnFile.setText("已选择");
-					String path = jfc.getSelectedFile().getAbsolutePath();
-					System.out.println(path);
+					String filePath = jfc.getSelectedFile().getAbsolutePath();
+					System.out.println(filePath);
+					// 将Excel中的编号填充到节点实体集合
+
+				} else {
+					jBtnFile.setText("选择...");
 				}
 			}
 		});
 		panel.add(jBtnFile);
 		pane.add(panel, BorderLayout.PAGE_START);
 		// center
-		panel=new JPanel();
+		panel = new JPanel();
 		panel.setBackground(Color.GRAY);
 		argLabel = new ArgStatusLabel(ArgStatusLabel.FONT_14_BOLD);
 		argLabel.setText("选择区域：");
 		panel.add(argLabel);
 		final JComboBox<String> cBox = new JComboBox<String>();
-		cBox.addActionListener(new ActionListener() {
-			
+		try {
+			String farmIniPath = "ArgFarmAreaName.properties";
+			InputStream in = new BufferedInputStream(new FileInputStream(
+					farmIniPath));
+			Properties props = new Properties();
+			props.load(in);
+			Enumeration<?> en = props.propertyNames();
+			while (en.hasMoreElements()) {
+				String key = (String) en.nextElement();
+				String Property = props.getProperty(key);
+				cBox.addItem(Property + "团");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		panel.add(cBox);
+		argLabel = new ArgStatusLabel(ArgStatusLabel.FONT_14_BOLD);
+		argLabel.setText("导入施工图：");
+		panel.add(argLabel);
+		final JButton img = new JButton("导入...");
+		img.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				try {
-					String filePath = "ArgFarmAreaName.properties";
-					InputStream in = new BufferedInputStream(new FileInputStream(
-							filePath));
-					Properties props = new Properties();
-					props.load(in);
-					Enumeration<?> en = props.propertyNames();
-					while (en.hasMoreElements()) {
-						String key = (String) en.nextElement();
-						String Property = props.getProperty(key);
-						cBox.addItem(Property);
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(
+						"jpg&png", "jpg", "png");
+				JFileChooser jfc = new JFileChooser();
+				jfc.setFileFilter(filter);
+				if (jfc.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+					// 解释下这里,弹出个对话框,可以选择要上传的文件,如果选择了,就把选择的文件的绝对路径打印出来,有了绝对路径,通过JTextField的settext就能设置进去了,那个我没写
+					img.setText("已导入");
+					String filePath = jfc.getSelectedFile().getAbsolutePath();
+					System.out.println(filePath);
+					// 将施工图导入到绘图界面
+
+				} else {
+					img.setText("导入...");
 				}
 			}
 		});
-		panel.add(cBox);
+		panel.add(img);
+		final JLabel info = new JLabel();
+		panel.add(info);
 		panel.setPreferredSize(new Dimension(200, 100));
 		pane.add(panel, BorderLayout.CENTER);
 		// foot
@@ -103,8 +131,15 @@ public class ArgParameterSet {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// 对节点路径和农场区域选择判断后，隐藏设置窗体
-
-				frame.setVisible(false);
+				if (jBtnFile.getText().equals("选择...")
+						|| img.getText().equals("导入...")) {
+					info.setText("请导入节点编号或施工图！");
+					info.setFont(ArgStatusLabel.FONT_14_BOLD);
+					info.setForeground(Color.RED);
+				} else {
+					frame.setVisible(false);
+					
+				}
 			}
 		});
 		pane.add(btn, BorderLayout.PAGE_END);

@@ -80,7 +80,6 @@ public class DrawMap {
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		// btn.setPreferredSize(new Dimension(200, 100));
-
 		pane.add(panel, BorderLayout.CENTER);
 
 		// foot
