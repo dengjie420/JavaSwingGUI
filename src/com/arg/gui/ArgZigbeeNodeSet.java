@@ -3,7 +3,6 @@ package com.arg.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +10,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -38,7 +36,7 @@ public class ArgZigbeeNodeSet {
 		// center
 		panel = new JPanel();
 		panel.setBackground(Color.GRAY);
-		JComboBox<String> cBox = new JComboBox<String>();
+		final JComboBox<String> cBox = new JComboBox<String>();
 		for (int i = 0; i < 4; i++) {
 			cBox.addItem((i + 1) + "");
 		}
@@ -59,7 +57,8 @@ public class ArgZigbeeNodeSet {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
+				String num = cBox.getItemAt(cBox.getSelectedIndex());
+				System.out.println(num);
 			}
 		});
 		panel = new JPanel();
