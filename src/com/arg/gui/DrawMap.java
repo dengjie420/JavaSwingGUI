@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -25,6 +26,7 @@ import javax.swing.UIManager;
  */
 public class DrawMap {
 
+	public static JLabel bgCenter = null;
 	private static JFrame frame = null;
 	private final static String VERSION = "v 1.1";
 	private final static String COMPANYNAME = "旭昂物联";
@@ -59,6 +61,7 @@ public class DrawMap {
 					case "保存控件":
 						break;
 					case "节点控件":
+						ArgZigbeeNodeSet.createAndShowGUI();
 						break;
 					case "横向水管":
 						break;
@@ -77,15 +80,14 @@ public class DrawMap {
 		pane.add(panel, BorderLayout.PAGE_START);
 
 		// center
-		panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		// btn.setPreferredSize(new Dimension(200, 100));
-		pane.add(panel, BorderLayout.CENTER);
+		bgCenter = new JLabel("",JLabel.CENTER);
+		pane.add(bgCenter, BorderLayout.CENTER);
 
 		// foot
 		panel = new JPanel();
 		panel.setBackground(Color.GRAY);
-		ArgStatusLabel argLabel = new ArgStatusLabel(ArgStatusLabel.FONT_14_BOLD);
+		ArgStatusLabel argLabel = new ArgStatusLabel(
+				ArgStatusLabel.FONT_14_BOLD);
 		argLabel.setText("主程序版本：" + VERSION);
 		panel.add(argLabel);
 		argLabel = new ArgStatusLabel(ArgStatusLabel.FONT_14_BOLD);

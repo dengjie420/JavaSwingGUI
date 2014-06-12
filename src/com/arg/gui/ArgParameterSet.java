@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -32,6 +33,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ArgParameterSet {
 
 	private static JFrame frame = null;
+	private static String pathImage = "";
 
 	/**
 	 * 提供布局逻辑
@@ -109,8 +111,8 @@ public class ArgParameterSet {
 				if (jfc.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
 					// 解释下这里,弹出个对话框,可以选择要上传的文件,如果选择了,就把选择的文件的绝对路径打印出来,有了绝对路径,通过JTextField的settext就能设置进去了,那个我没写
 					img.setText("已导入");
-					String filePath = jfc.getSelectedFile().getAbsolutePath();
-					System.out.println(filePath);
+					pathImage = jfc.getSelectedFile().getAbsolutePath();
+					System.out.println(pathImage);
 					// 将施工图导入到绘图界面
 
 				} else {
@@ -138,7 +140,8 @@ public class ArgParameterSet {
 					info.setForeground(Color.RED);
 				} else {
 					frame.setVisible(false);
-					
+					ImageIcon icon = new ImageIcon(pathImage);
+					DrawMap.bgCenter.setIcon(icon);
 				}
 			}
 		});
