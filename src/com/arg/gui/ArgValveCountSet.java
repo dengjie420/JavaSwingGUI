@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -92,8 +93,15 @@ public class ArgValveCountSet {
 
 	/**
 	 * 实例化一个JPanel，通过它的ContentPane加载布局逻辑内容
+	 * 
+	 * @param component
 	 */
-	public static void createAndShowGUI() {
+	public static void createAndShowGUI(JComponent component) {
+		// 获取节点的坐标和宽高
+		ArgJLabelNode node = (ArgJLabelNode) component;
+		System.out.println(node.getWidth() + "-" + node.getHeight());
+		System.out.println("x="+node.getX()+ " - y=" + node.getY());
+
 		if (frame == null) {
 			frame = new JFrame("水阀数设置");
 		}

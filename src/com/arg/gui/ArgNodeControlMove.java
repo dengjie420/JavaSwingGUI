@@ -63,9 +63,8 @@ public class ArgNodeControlMove {
 				super.mouseClicked(e);
 				if (type == NODE) {
 					// 创建节点下挂的水阀
-					ArgValveCountSet.createAndShowGUI();
+					ArgValveCountSet.createAndShowGUI(component);
 				} else if (type == VALVE) {
-					// 
 				}
 			}
 
