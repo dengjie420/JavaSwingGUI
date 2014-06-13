@@ -11,8 +11,14 @@ import javax.swing.JOptionPane;
  */
 public class ArgMessageBox{
 
-	public ArgMessageBox(JFrame frame,String content, String info) {
-		JOptionPane.showMessageDialog(frame,content, info,
+	/**
+	 * 
+	 * @param frame：所属父窗体
+	 * @param content：内容
+	 * @param info：标题
+	 */
+	public ArgMessageBox(JFrame frame,String content, String title) {
+		JOptionPane.showMessageDialog(frame,content, title,
 				JOptionPane.DEFAULT_OPTION);
 	}
 

@@ -13,15 +13,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * 节点设置界面
+ * 水阀个数设置窗体
  * 
  * 边框布局
  * 
  * @author dengjie
  * 
  */
-public class ArgZigbeeNodeSet {
-
+public class ArgValveCountSet {
 	private static JFrame frame = null;
 	private static int startIndex = 0;
 	private static int maxNum = 0;
@@ -45,7 +44,7 @@ public class ArgZigbeeNodeSet {
 		panel.setBackground(Color.GRAY);
 		final JComboBox<String> cBox = new JComboBox<String>();
 		// 填充下拉框
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < 4; i++) {
 			cBox.addItem((i + 1) + "");
 		}
 		argLbl = new ArgStatusLabel(ArgStatusLabel.FONT_14_BOLD);
@@ -70,18 +69,16 @@ public class ArgZigbeeNodeSet {
 				if (!num.equals("0")) {
 					frame.setVisible(false);
 					for (int i = startIndex; i < maxNum; i++) {
-						ArgJLabelNode node = new ArgJLabelNode(i * 30, 0,
-								"sources/nodeoff.png");
-						node.setShowValueNo((i + 1) + "");
-						node.setVol("7.22");
+						ArgJLabelValve valve = new ArgJLabelValve(i * 30, 0,
+								"sources/d.png");
+						valve.setText((i + 1) + "");
 						// 添加监听节点控件事件
 						ArgNodeControlMove.getInstance(
 								DrawMap.bgCenter.getWidth(),
 								DrawMap.bgCenter.getHeight())
-								.listenControlsMove(node,
-										ArgNodeControlMove.NODE);
-						// 将节点控件add到Label容器中
-						DrawMap.bgCenter.add(node);
+								.listenControlsMove(valve,
+										ArgNodeControlMove.VALVE);
+						DrawMap.bgCenter.add(valve);
 						DrawMap.bgCenter.repaint();
 					}
 					startIndex = maxNum;
@@ -98,7 +95,7 @@ public class ArgZigbeeNodeSet {
 	 */
 	public static void createAndShowGUI() {
 		if (frame == null) {
-			frame = new JFrame("节点数设置");
+			frame = new JFrame("水阀数设置");
 		}
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);

@@ -152,7 +152,9 @@ public class ArgParameterSet {
 	 * 实例化一个JPanel，通过它的ContentPane加载布局逻辑内容
 	 */
 	public static void createAndShowGUI() {
-		frame = new JFrame("参数设置");
+		if (frame == null) {
+			frame = new JFrame("参数设置");
+		}
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setAlwaysOnTop(true);
