@@ -65,10 +65,10 @@ public class DrawMap {
 						ArgZigbeeNodeSet.createAndShowGUI();
 						break;
 					case "横向水管":
-						new ArgMessageBox(frame,"正在开发中...","提示");
+						ArgAcrossSet.createAndShowGUI();
 						break;
 					case "纵向水管":
-						new ArgMessageBox(frame,"正在开发中...","提示");
+						ArgVerticalSet.createAndShowGUI();
 						break;
 					case "首部":
 						new ArgMessageBox(frame,"正在开发中...","提示");

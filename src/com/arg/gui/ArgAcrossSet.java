@@ -9,22 +9,19 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * 水阀个数设置窗体
- * 
- * 边框布局
+ * 横向水管布局
  * 
  * @author dengjie
  * 
  */
-public class ArgValveCountSet {
+public class ArgAcrossSet {
 	private static JFrame frame = null;
-	private static int x = 0;
-	private static int y = 0;
+	private static int maxNum = 0;
+	private static int startIndex = 0;
 
 	/**
 	 * 提供布局逻辑
@@ -36,7 +33,7 @@ public class ArgValveCountSet {
 		JPanel panel = new JPanel();
 		JButton btn = new JButton();
 		ArgStatusLabel argLbl = new ArgStatusLabel(ArgStatusLabel.FONT_14_BOLD);
-		argLbl.setText("请选择绘制的水阀数量：");
+		argLbl.setText("请选择绘制的水管数量：");
 		panel.add(argLbl);
 		pane.add(argLbl, BorderLayout.PAGE_START);
 
@@ -53,7 +50,7 @@ public class ArgValveCountSet {
 		panel.add(argLbl);
 		panel.add(cBox);
 		argLbl = new ArgStatusLabel(ArgStatusLabel.FONT_14_BOLD);
-		argLbl.setText("个水阀");
+		argLbl.setText("个水管");
 		panel.add(argLbl);
 		pane.add(panel, BorderLayout.CENTER);
 
@@ -66,41 +63,22 @@ public class ArgValveCountSet {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String num = cBox.getItemAt(cBox.getSelectedIndex());
-				int maxNum = Integer.parseInt(num);
+				maxNum += Integer.parseInt(num);
 				if (!num.equals("0")) {
 					frame.setVisible(false);
-					for (int i = 0; i < maxNum; i++) {
-						ArgJLabelValve valve = null;
-						switch (i) {
-						case 0:
-							valve = new ArgJLabelValve(x - 30, y,
-									"sources/d.png");
-							break;
-						case 1:
-							valve = new ArgJLabelValve(x, y - 30,
-									"sources/d.png");
-							break;
-						case 2:
-							valve = new ArgJLabelValve(x + 30, y,
-									"sources/d.png");
-							break;
-						case 3:
-							valve = new ArgJLabelValve(x, y + 50,
-									"sources/d.png");
-							break;
-						default:
-							break;
-						}
-						valve.setText((i + 1) + "");
+					for (int i = startIndex; i < maxNum; i++) {
+						ArgJLabelAcross across = new ArgJLabelAcross(i * 116,
+								0, "sources/hoseh.jpg");
 						// 添加监听节点控件事件
 						ArgNodeControlMove.getInstance(
 								DrawMap.bgCenter.getWidth(),
 								DrawMap.bgCenter.getHeight())
-								.listenControlsMove(valve,
-										ArgNodeControlMove.VALVE);
-						DrawMap.bgCenter.add(valve);
+								.listenControlsMove(across,
+										ArgNodeControlMove.ACROSS);
+						DrawMap.bgCenter.add(across);
 						DrawMap.bgCenter.repaint();
 					}
+					startIndex = maxNum;
 				}
 			}
 		});
@@ -114,14 +92,9 @@ public class ArgValveCountSet {
 	 * 
 	 * @param component
 	 */
-	public static void createAndShowGUI(JComponent component) {
-		// 获取节点的坐标和宽高
-		ArgJLabelNode node = (ArgJLabelNode) component;
-		x = node.getX();
-		y = node.getY();
-
+	public static void createAndShowGUI() {
 		if (frame == null) {
-			frame = new JFrame("水阀数设置");
+			frame = new JFrame("横向水管数设置");
 		}
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);

@@ -1,6 +1,7 @@
 package com.arg.gui;
 
 import java.awt.Point;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -25,6 +26,8 @@ public class ArgNodeControlMove {
 	 */
 	public static int NODE = 1;
 	public static int VALVE = 2;
+	public static int ACROSS = 3;
+	public static int VERTICAL = 4;
 
 	private ArgNodeControlMove(int parentWidth, int parentHeight) {
 		this.width = parentWidth;
@@ -61,10 +64,24 @@ public class ArgNodeControlMove {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				super.mouseClicked(e);
-				if (type == NODE) {
-					// 创建节点下挂的水阀
-					ArgValveCountSet.createAndShowGUI(component);
-				} else if (type == VALVE) {
+				if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
+					// 处理鼠标左键单击
+					if (type == NODE) {
+						// 创建节点下挂的水阀
+						ArgValveCountSet.createAndShowGUI(component);
+					} else if (type == VALVE) {
+					} else if (type == ACROSS) {
+
+					} else if (type == VERTICAL) {
+
+					}
+				}
+				if ((e.getModifiers() & InputEvent.BUTTON2_MASK) != 0) {
+					// 处理鼠标中间键单击
+				}
+				if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+					// 处理鼠标右键单击
+					System.out.println("right");
 				}
 			}
 
