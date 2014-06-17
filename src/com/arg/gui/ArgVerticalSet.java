@@ -88,7 +88,7 @@ public class ArgVerticalSet {
 	}
 
 	/**
-	 * 实例化一个JPanel，通过它的ContentPane加载布局逻辑内容
+	 * 实例化一个JFrame
 	 * 
 	 * @param component
 	 */

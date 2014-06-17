@@ -81,7 +81,15 @@ public class ArgNodeControlMove {
 				}
 				if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
 					// 处理鼠标右键单击
-					System.out.println("right");
+					if (type == NODE) {
+						System.out.println("NODE");
+					} else if (type == VALVE) {
+						System.out.println("VALVE");
+					} else if (type == ACROSS) {
+						System.out.println("ACROSS");
+					} else if (type == VERTICAL) {
+						System.out.println("VERTICAL");
+					}
 				}
 			}
 

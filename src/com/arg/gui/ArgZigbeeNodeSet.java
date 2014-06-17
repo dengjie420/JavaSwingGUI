@@ -94,7 +94,7 @@ public class ArgZigbeeNodeSet {
 	}
 
 	/**
-	 * 实例化一个JPanel，通过它的ContentPane加载布局逻辑内容
+	 * 实例化一个JFrame
 	 */
 	public static void createAndShowGUI() {
 		if (frame == null) {

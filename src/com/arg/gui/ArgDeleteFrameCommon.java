@@ -13,12 +13,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * 横向水管布局
+ * 通用的删除控件界面
  * 
  * @author dengjie
  * 
  */
-public class ArgAcrossSet {
+public class ArgDeleteFrameCommon {
 	private static JFrame frame = null;
 	private static int maxNum = 0;
 	private static int startIndex = 0;
@@ -67,15 +67,15 @@ public class ArgAcrossSet {
 				if (!num.equals("0")) {
 					frame.setVisible(false);
 					for (int i = startIndex; i < maxNum; i++) {
-						ArgJLabelAcross across = new ArgJLabelAcross(i * 116,
-								0, "sources/hoseh.jpg");
+						ArgJLabelVertical vertical = new ArgJLabelVertical(
+								i * 9, 0, "sources/hosev.jpg");
 						// 添加监听节点控件事件
 						ArgNodeControlMove.getInstance(
 								DrawMap.bgCenter.getWidth(),
 								DrawMap.bgCenter.getHeight())
-								.listenControlsMove(across,
-										ArgNodeControlMove.ACROSS);
-						DrawMap.bgCenter.add(across);
+								.listenControlsMove(vertical,
+										ArgNodeControlMove.VERTICAL);
+						DrawMap.bgCenter.add(vertical);
 						DrawMap.bgCenter.repaint();
 					}
 					startIndex = maxNum;
@@ -94,7 +94,7 @@ public class ArgAcrossSet {
 	 */
 	public static void createAndShowGUI() {
 		if (frame == null) {
-			frame = new JFrame("横向水管数设置");
+			frame = new JFrame("控件参数设置");
 		}
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
